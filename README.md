@@ -66,6 +66,8 @@ A browser-based 3D first-person shooter game where you battle against a computer
 - ✅ Safari
 - ✅ Edge
 
+**Note:** The game requires an internet connection on first load to download Three.js from CDN. After that, it will be cached by your browser.
+
 ## Performance
 The game is optimized to run at 60 FPS with:
 - Low-poly 3D models
