@@ -42,8 +42,8 @@ class Projectile {
     update(deltaTime) {
         if (!this.active) return;
 
-        // Move projectile
-        const velocity = this.direction.clone().multiplyScalar(this.speed);
+        // Move projectile (frame-rate independent)
+        const velocity = this.direction.clone().multiplyScalar(this.speed * deltaTime * 60);
         this.position.add(velocity);
         this.mesh.position.copy(this.position);
         this.light.position.copy(this.position);

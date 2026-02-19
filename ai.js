@@ -85,7 +85,7 @@ class AI {
                 this.idle();
                 break;
             case 'chase':
-                this.chase(player, arena);
+                this.chase(deltaTime, player, arena);
                 break;
             case 'attack':
                 this.attack(deltaTime, player, arena);
@@ -97,14 +97,14 @@ class AI {
         // Do nothing or wander randomly
     }
 
-    chase(player, arena) {
+    chase(deltaTime, player, arena) {
         // Move towards player
         const direction = new THREE.Vector3()
             .subVectors(player.position, this.position)
             .normalize();
 
-        this.position.x += direction.x * this.speed;
-        this.position.z += direction.z * this.speed;
+        this.position.x += direction.x * this.speed * deltaTime * 60;
+        this.position.z += direction.z * this.speed * deltaTime * 60;
 
         // Check collision with arena boundaries
         arena.checkWallCollision(this.position, 1);
@@ -131,8 +131,8 @@ class AI {
             const direction = new THREE.Vector3()
                 .subVectors(this.position, player.position)
                 .normalize();
-            this.position.x += direction.x * this.speed * 0.5;
-            this.position.z += direction.z * this.speed * 0.5;
+            this.position.x += direction.x * this.speed * 0.5 * deltaTime * 60;
+            this.position.z += direction.z * this.speed * 0.5 * deltaTime * 60;
             arena.checkWallCollision(this.position, 1);
         }
     }

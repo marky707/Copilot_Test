@@ -97,12 +97,12 @@ class Player {
     update(deltaTime, arena) {
         if (!this.alive) return;
 
-        this.updateMovement(arena);
+        this.updateMovement(deltaTime, arena);
         this.updateCamera();
         this.weapon.update(deltaTime);
     }
 
-    updateMovement(arena) {
+    updateMovement(deltaTime, arena) {
         // Calculate movement direction
         const direction = new THREE.Vector3();
         
@@ -120,9 +120,9 @@ class Player {
                 this.rotation.yaw
             );
             
-            // Update position
-            this.position.x += rotatedDirection.x * this.speed;
-            this.position.z += rotatedDirection.z * this.speed;
+            // Update position (frame-rate independent)
+            this.position.x += rotatedDirection.x * this.speed * deltaTime * 60;
+            this.position.z += rotatedDirection.z * this.speed * deltaTime * 60;
             
             // Check collision with arena boundaries
             arena.checkWallCollision(this.position, 1);

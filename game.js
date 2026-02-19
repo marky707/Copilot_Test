@@ -153,10 +153,17 @@ class Game {
             
             this.scene.add(particle);
             
-            // Animate particle
+            // Animate particle with time tracking for frame-rate independence
+            let lastTime = Date.now();
             const animateParticle = () => {
-                particle.position.add(velocity);
-                particle.material.opacity -= 0.02;
+                const currentTime = Date.now();
+                const deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
+                lastTime = currentTime;
+                
+                // Update position and opacity based on deltaTime
+                const velocityScaled = velocity.clone().multiplyScalar(deltaTime * 60);
+                particle.position.add(velocityScaled);
+                particle.material.opacity -= 0.02 * deltaTime * 60;
                 
                 if (particle.material.opacity > 0) {
                     requestAnimationFrame(animateParticle);
