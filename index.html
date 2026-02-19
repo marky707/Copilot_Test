@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D FPS Arena Battle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        
+        <!-- Crosshair -->
+        <div id="crosshair">
+            <div class="crosshair-line crosshair-horizontal"></div>
+            <div class="crosshair-line crosshair-vertical"></div>
+        </div>
+        
+        <!-- HUD -->
+        <div id="hud">
+            <div id="player-health-container">
+                <div class="health-label">Player Health</div>
+                <div class="health-bar-bg">
+                    <div id="player-health-bar" class="health-bar"></div>
+                </div>
+                <div id="player-health-text" class="health-text">100 HP</div>
+            </div>
+            
+            <div id="ai-health-container">
+                <div class="health-label">AI Health</div>
+                <div class="health-bar-bg">
+                    <div id="ai-health-bar" class="health-bar ai-health"></div>
+                </div>
+                <div id="ai-health-text" class="health-text">100 HP</div>
+            </div>
+            
+            <div id="score-container">
+                <div id="score-text">Kills: 0</div>
+            </div>
+        </div>
+        
+        <!-- Start Menu -->
+        <div id="start-menu" class="menu">
+            <h1>3D FPS Arena Battle</h1>
+            <div class="menu-content">
+                <p>Controls:</p>
+                <ul>
+                    <li>Arrow Keys - Move</li>
+                    <li>Mouse - Look Around</li>
+                    <li>Space - Shoot</li>
+                </ul>
+                <button id="start-button" class="menu-button">Start Game</button>
+            </div>
+        </div>
+        
+        <!-- Game Over Menu -->
+        <div id="game-over-menu" class="menu hidden">
+            <h1 id="game-over-title">Game Over</h1>
+            <div class="menu-content">
+                <p id="game-over-message"></p>
+                <button id="restart-button" class="menu-button">Restart Game</button>
+            </div>
+        </div>
+        
+        <!-- Instructions -->
+        <div id="instructions" class="hidden">
+            Click to lock pointer and start playing!
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <script src="arena.js"></script>
+    <script src="weapon.js"></script>
+    <script src="player.js"></script>
+    <script src="ai.js"></script>
+    <script src="ui.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
