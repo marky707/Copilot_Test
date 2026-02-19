@@ -1,6 +1,10 @@
 /**
  * Projectile class - Represents a bullet/laser shot
  */
+
+// Constants
+const FRAME_RATE_NORMALIZATION = 60;
+
 class Projectile {
     constructor(scene, position, direction, owner) {
         this.scene = scene;
@@ -43,7 +47,7 @@ class Projectile {
         if (!this.active) return;
 
         // Move projectile (frame-rate independent)
-        const velocity = this.direction.clone().multiplyScalar(this.speed * deltaTime * 60);
+        const velocity = this.direction.clone().multiplyScalar(this.speed * deltaTime * FRAME_RATE_NORMALIZATION);
         this.position.add(velocity);
         this.mesh.position.copy(this.position);
         this.light.position.copy(this.position);

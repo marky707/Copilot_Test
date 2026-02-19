@@ -1,6 +1,10 @@
 /**
  * AI class - Computer-controlled opponent with basic behavior
  */
+
+// Constants
+const FRAME_RATE_NORMALIZATION = 60;
+
 class AI {
     constructor(scene, position) {
         this.scene = scene;
@@ -103,8 +107,8 @@ class AI {
             .subVectors(player.position, this.position)
             .normalize();
 
-        this.position.x += direction.x * this.speed * deltaTime * 60;
-        this.position.z += direction.z * this.speed * deltaTime * 60;
+        this.position.x += direction.x * this.speed * deltaTime * FRAME_RATE_NORMALIZATION;
+        this.position.z += direction.z * this.speed * deltaTime * FRAME_RATE_NORMALIZATION;
 
         // Check collision with arena boundaries
         arena.checkWallCollision(this.position, 1);
@@ -131,8 +135,8 @@ class AI {
             const direction = new THREE.Vector3()
                 .subVectors(this.position, player.position)
                 .normalize();
-            this.position.x += direction.x * this.speed * 0.5 * deltaTime * 60;
-            this.position.z += direction.z * this.speed * 0.5 * deltaTime * 60;
+            this.position.x += direction.x * this.speed * 0.5 * deltaTime * FRAME_RATE_NORMALIZATION;
+            this.position.z += direction.z * this.speed * 0.5 * deltaTime * FRAME_RATE_NORMALIZATION;
             arena.checkWallCollision(this.position, 1);
         }
     }

@@ -1,6 +1,11 @@
 /**
  * Game class - Main game logic and loop
  */
+
+// Constants for frame-rate independence
+const FRAME_RATE_NORMALIZATION = 60;
+const PARTICLE_FADE_RATE = 0.02;
+
 class Game {
     constructor() {
         this.scene = null;
@@ -161,9 +166,9 @@ class Game {
                 lastTime = currentTime;
                 
                 // Update position and opacity based on deltaTime
-                const velocityScaled = velocity.clone().multiplyScalar(deltaTime * 60);
+                const velocityScaled = velocity.clone().multiplyScalar(deltaTime * FRAME_RATE_NORMALIZATION);
                 particle.position.add(velocityScaled);
-                particle.material.opacity -= 0.02 * deltaTime * 60;
+                particle.material.opacity -= PARTICLE_FADE_RATE * deltaTime * FRAME_RATE_NORMALIZATION;
                 
                 if (particle.material.opacity > 0) {
                     requestAnimationFrame(animateParticle);

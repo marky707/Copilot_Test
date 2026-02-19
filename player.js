@@ -1,6 +1,10 @@
 /**
  * Player class - Handles player controls, movement, and camera
  */
+
+// Constants
+const FRAME_RATE_NORMALIZATION = 60;
+
 class Player {
     constructor(scene, camera) {
         this.scene = scene;
@@ -121,8 +125,8 @@ class Player {
             );
             
             // Update position (frame-rate independent)
-            this.position.x += rotatedDirection.x * this.speed * deltaTime * 60;
-            this.position.z += rotatedDirection.z * this.speed * deltaTime * 60;
+            this.position.x += rotatedDirection.x * this.speed * deltaTime * FRAME_RATE_NORMALIZATION;
+            this.position.z += rotatedDirection.z * this.speed * deltaTime * FRAME_RATE_NORMALIZATION;
             
             // Check collision with arena boundaries
             arena.checkWallCollision(this.position, 1);
