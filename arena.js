@@ -5,6 +5,7 @@ class Arena {
     constructor(scene) {
         this.scene = scene;
         this.walls = [];
+        this.arenaSize = 50; // Arena dimensions
         this.setup();
     }
 
@@ -55,7 +56,7 @@ class Arena {
     createWalls() {
         const wallHeight = 10;
         const wallThickness = 1;
-        const arenaSize = 50;
+        const halfSize = this.arenaSize / 2;
 
         const wallMaterial = new THREE.MeshStandardMaterial({
             color: 0x666666,
@@ -65,32 +66,32 @@ class Arena {
 
         // North wall
         const northWall = this.createWall(
-            arenaSize, wallHeight, wallThickness,
-            0, wallHeight / 2, -arenaSize / 2,
+            this.arenaSize, wallHeight, wallThickness,
+            0, wallHeight / 2, -halfSize,
             wallMaterial
         );
         this.walls.push(northWall);
 
         // South wall
         const southWall = this.createWall(
-            arenaSize, wallHeight, wallThickness,
-            0, wallHeight / 2, arenaSize / 2,
+            this.arenaSize, wallHeight, wallThickness,
+            0, wallHeight / 2, halfSize,
             wallMaterial
         );
         this.walls.push(southWall);
 
         // East wall
         const eastWall = this.createWall(
-            wallThickness, wallHeight, arenaSize,
-            arenaSize / 2, wallHeight / 2, 0,
+            wallThickness, wallHeight, this.arenaSize,
+            halfSize, wallHeight / 2, 0,
             wallMaterial
         );
         this.walls.push(eastWall);
 
         // West wall
         const westWall = this.createWall(
-            wallThickness, wallHeight, arenaSize,
-            -arenaSize / 2, wallHeight / 2, 0,
+            wallThickness, wallHeight, this.arenaSize,
+            -halfSize, wallHeight / 2, 0,
             wallMaterial
         );
         this.walls.push(westWall);
@@ -119,7 +120,7 @@ class Arena {
 
     // Check if position is within arena bounds
     isWithinBounds(position, margin = 2) {
-        const halfSize = 50 / 2 - margin;
+        const halfSize = this.arenaSize / 2 - margin;
         return Math.abs(position.x) < halfSize && 
                Math.abs(position.z) < halfSize;
     }
@@ -127,7 +128,7 @@ class Arena {
     // Get random spawn position
     getRandomSpawnPosition() {
         const margin = 5;
-        const halfSize = 50 / 2 - margin;
+        const halfSize = this.arenaSize / 2 - margin;
         return new THREE.Vector3(
             (Math.random() - 0.5) * 2 * halfSize,
             1.6,
@@ -137,7 +138,7 @@ class Arena {
 
     // Check collision with walls
     checkWallCollision(position, radius = 1) {
-        const halfSize = 50 / 2;
+        const halfSize = this.arenaSize / 2;
         const margin = radius;
 
         // Check bounds

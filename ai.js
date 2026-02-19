@@ -22,6 +22,7 @@ class AI {
         this.shootInterval = 1000; // Shoot every 1 second
         this.detectionRange = 100;
         this.attackRange = 30;
+        this.flashTimeoutId = null; // Store timeout ID to prevent memory leaks
         
         this.createMesh();
     }
@@ -190,13 +191,18 @@ class AI {
 
         this.health = Math.max(0, this.health - damage);
         
-        // Flash effect when hit
+        // Flash effect when hit (clear any existing timeout to prevent memory leaks)
         if (this.bodyMesh) {
+            if (this.flashTimeoutId) {
+                clearTimeout(this.flashTimeoutId);
+            }
+            
             this.bodyMesh.material.emissive.setHex(0xff0000);
-            setTimeout(() => {
+            this.flashTimeoutId = setTimeout(() => {
                 if (this.bodyMesh) {
                     this.bodyMesh.material.emissive.setHex(0x330000);
                 }
+                this.flashTimeoutId = null;
             }, 100);
         }
 
@@ -207,6 +213,12 @@ class AI {
     }
 
     destroy() {
+        // Clear any pending timeouts
+        if (this.flashTimeoutId) {
+            clearTimeout(this.flashTimeoutId);
+            this.flashTimeoutId = null;
+        }
+        
         if (this.bodyMesh) {
             this.scene.remove(this.bodyMesh);
             this.bodyMesh.geometry.dispose();
