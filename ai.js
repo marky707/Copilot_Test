@@ -58,11 +58,11 @@ class AI {
         if (!this.alive) return;
 
         this.weapon.update(deltaTime);
-        this.updateBehavior(player, arena);
+        this.updateBehavior(deltaTime, player, arena);
         this.updateMeshPosition();
     }
 
-    updateBehavior(player, arena) {
+    updateBehavior(deltaTime, player, arena) {
         if (!player.alive) {
             this.state = 'idle';
             return;
@@ -88,7 +88,7 @@ class AI {
                 this.chase(player, arena);
                 break;
             case 'attack':
-                this.attack(player, arena);
+                this.attack(deltaTime, player, arena);
                 break;
         }
     }
@@ -113,12 +113,12 @@ class AI {
         this.lookAt(player.position);
     }
 
-    attack(player, arena) {
+    attack(deltaTime, player, arena) {
         // Stop and shoot at player
         this.lookAt(player.position);
         
-        // Try to shoot
-        this.shootCooldown -= 16; // Approximate deltaTime
+        // Try to shoot (deltaTime is in seconds, convert to milliseconds)
+        this.shootCooldown -= deltaTime * 1000;
         if (this.shootCooldown <= 0) {
             this.shoot(player.position);
             this.shootCooldown = this.shootInterval;

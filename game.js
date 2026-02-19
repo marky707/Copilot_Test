@@ -199,10 +199,5 @@ class Game {
 
 // Initialize game when page loads
 window.addEventListener('DOMContentLoaded', () => {
-    const game = new Game();
-    
-    // Start game when start button is clicked
-    document.getElementById('start-button').addEventListener('click', () => {
-        game.start();
-    });
+    new Game();
 });
